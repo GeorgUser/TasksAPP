@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.bg {
+    background: #adb5bd;
+    min-height: 100vh;
+}
+
+.menu {
+    padding: 20px 0;
+    border-bottom: 2px solid black;
+}
+
+.navItem {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 7px;
+    border-radius: 5px;
+    background-color: #000;
+    margin: 0 10px;
+    transition: .3s;
+}
+
+.navItem:hover {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #666666;
+}
+
+.form {
+    padding: 10px 0;
+    border-bottom: 2px solid black;
+}
+
+.tableToDo {
+    max-width: 320px;
+}
+
+.newTask {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list {
+    margin-top: 10px;
+}
+
+.task-block {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task p {
+    margin: 0;
+}
+
+.task {
+    display: flex;
+}
+
+.taskNum {
+    margin: 5px 5px 5px 0;
+    font-size: 22px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.btnBlock {
+    text-align: right;
+}
+
+.btn {
+    margin: 0 5px;
+}
+
+
+
+li {
+    margin: 5px 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+input:focus,
+input:active,
+button:focus,
+button:active {
+    outline: none;
+}
+
+
