@@ -23,17 +23,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api/tasks", tasks);
 
-
-// app.get("/", (req, res) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     console.log(res);
-//     console.log("Hi Heroku georg")
-// });
+app.use(express.static(path.join(__dirname,"data")));
 
 app.get("/", (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.sendFile(path.join(__dirname + '/data/index.html'));
-    console.log(process.env)
+    console.log("Hello Test");
 });
 
 const port = process.env.PORT || 4000;
