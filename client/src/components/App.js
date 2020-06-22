@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import NewTask from './forms/NewTask';
 import TasksList from './tasks/TasksList';
 import {Route} from "react-router-dom"
@@ -9,11 +9,17 @@ import LogIn from "./forms/LogIn";
 import {loadTasksAction} from "../actions/tasksAct";
 
 
-
 const App = ({tasks, loadTasksAction}) => {
+
+    const [taskForChange, getTaskForChange] = useState(null);
 
     const done = tasks.filter(task => task.status === true);
     const noDone = tasks.filter(task => task.status === false);
+
+    const changeTask = task => {
+        getTaskForChange(task);
+        console.log(taskForChange);
+    };
 
     useEffect(() => {
         loadTasksAction().catch(err => alert(err))
@@ -24,8 +30,8 @@ const App = ({tasks, loadTasksAction}) => {
         <div className="tableToDo">
             <Nav/>
             <Route exact path="/" component={LogIn} />
-            <Route path="/tasks" component={NewTask} />
-            <Route path="/tasks" render={()=><TasksList tasks={noDone} title={"Your tasks"}/>} />
+            <Route path="/tasks" render={()=> <NewTask taskForChange={taskForChange}/>} />
+            <Route path="/tasks" render={()=><TasksList changeTask={changeTask} tasks={noDone} title={"Your tasks"}/>} />
             <Route path="/history" render={()=><TasksList tasks={done} title={"History"}/>} />
         </div>
     </div>)

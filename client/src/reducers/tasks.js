@@ -1,4 +1,4 @@
-import C from "../constants"
+import C from "../constants";
 
 export default function (state = [], action) {
     const {type, payload} = action;
@@ -9,12 +9,11 @@ export default function (state = [], action) {
             return [...state, payload];
         case C.TOGGLE_TASK:
             return state.map(task =>
-                task._id === payload._id ? {...task, status: !task.status} : task);
+                task._id === payload._id ? {...task, ...payload} : task);
         case C.DEL_TASK:
             return state.filter(task =>
                 task._id !== payload._id);
         default:
             return state
     }
-
 }

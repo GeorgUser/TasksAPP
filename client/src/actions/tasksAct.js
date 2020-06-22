@@ -25,12 +25,7 @@ export function addTask(task) {
     }
 }
 
-// export const doneTask = task => ({
-//     type: C.TOGGLE_TASK,
-//     payload: {...task},
-// });
-
-export function doneTask(task) {
+export function toggleTask(task) {
     return function (dispatch) {
         console.log(task);
         return api.tasks.update(task)
@@ -57,8 +52,3 @@ export function delTask(task) {
             })
     }
 }
-
-// export const delTask = id => ({
-//     type: C.DEL_TASK,
-//     payload: {id},
-// });

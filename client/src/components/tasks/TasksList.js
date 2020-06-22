@@ -3,7 +3,7 @@ import Task from './Task';
 import Message from './Message';
 import PropTypes from 'prop-types';
 
-const TasksList = ({tasks, title}) => {
+const TasksList = ({ tasks, title, changeTask }) => {
     return (
         <>
             <h3>{title}</h3>
@@ -11,7 +11,7 @@ const TasksList = ({tasks, title}) => {
                 {tasks.length ? tasks.map((task, i) => (
                         <div key={task._id} className="task">
                             <span className="taskNum">{i+1}.</span>
-                            <Task task={task}></Task>
+                            <Task task={task} changeTask={changeTask}/>
                         </div>
                     )
                 ) : <Message/>}

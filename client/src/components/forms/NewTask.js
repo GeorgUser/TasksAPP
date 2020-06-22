@@ -1,23 +1,43 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import { addTask } from "../../actions/tasksAct";
+import {addTask, toggleTask} from "../../actions/tasksAct";
 import Spinner from "../Spinner";
 
 
-function NewTask({addTask}) {
-    const [task, getTask] = useState("");
+function NewTask({addTask, taskForChange, toggleTask}) {
 
     const [load, getLoad] = useState(false);
 
+    const [task, getTask] = useState({
+        title: '',
+        status: false
+    });
+
+    useEffect(() => {
+        if (taskForChange !== null) getTask(taskForChange);
+    }, [taskForChange]);
+
+    const handleChange = ({target}) => getTask({
+        ...task, title: target.value
+    });
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const taskData = {title: task, status: false};
-        addTask(taskData);
-        getTask('');
+        getLoad(true);
+        if (taskForChange) {
+            getTask(taskForChange);
+            toggleTask(task).then(() => getLoad(false));
+        } else {
+            setTimeout(
+            addTask(task).then(() => getLoad(false)),5000);
+        }
+
+        getTask({
+            title: '',
+            status: false
+        });
     };
-
-
 
     return (
         <form onSubmit={handleSubmit} className="form">
@@ -25,7 +45,7 @@ function NewTask({addTask}) {
                 <input
                     type="text"
                     onChange={handleChange}
-                    value={task}
+                    value={task.title}
                     className="form-control"
                 />
                 {load ? (<Spinner/>)
@@ -47,8 +67,7 @@ function mapStateToProps(state) {
 
 NewTask.propTypes = {
     addTask: PropTypes.func.isRequired,
-}
+};
 
 
-
-export default connect(mapStateToProps,{addTask})(NewTask);
+export default connect(mapStateToProps, {addTask, toggleTask})(NewTask);

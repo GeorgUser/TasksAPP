@@ -1,31 +1,44 @@
-import React from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
-import { doneTask, delTask } from "../../actions/tasksAct";
+import {toggleTask, delTask} from "../../actions/tasksAct";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTrashAlt, faUndo, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCheck, faTrashAlt, faUndo, faCheckDouble, faPen, faTimes} from '@fortawesome/free-solid-svg-icons';
 import Spinner from "../Spinner";
 
-function Task({task, doneTask, delTask}) {
+
+function Task({task, toggleTask, delTask, changeTask}) {
 
     const [load, getLoad] = useState(false);
+    const [on, setOn] = useState(false);
+
+    const showConfirm = () => setOn(true);
+    const hideConfirm = () => setOn(false);
+
     const done = () => {
-        doneTask({...task, status: !task.status})
+        getLoad(true);
+        toggleTask({...task, status: !task.status}).then(() => getLoad(false));
+    };
+
+    const update = () => {
+        changeTask(task);
     };
 
     const del = () => {
-        delTask(task)
+        getLoad(true);
+        delTask(task).then(() => getLoad(false));
     };
 
     return (
         <li className="task-block">
             <div className="task">
-               <p>{task.status && <FontAwesomeIcon icon={faCheckDouble} />} {task.title}</p>
+                <p>{task.status && <FontAwesomeIcon icon={faCheckDouble}/>} {task.title}</p>
             </div>
             {load ? (<Spinner main={task.status ? '#dc3545' : '#28a745'}/>)
                 :
                 (<div className="btnBlock">
                     <button onClick={on ? del : done} className="btn btn-success">
+                        <FontAwesomeIcon icon={task.status && !on ? faUndo : faCheck}/>
                     </button>
                     <button onClick={on ? (hideConfirm) : (task.status ? showConfirm : update)}
                             className={task.status ? "btn btn-danger" : "btn btn-primary"}>
@@ -37,12 +50,16 @@ function Task({task, doneTask, delTask}) {
     )
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {state}
 }
 
 Task.propTypes = {
-    doneTask: PropTypes.func.isRequired,
-}
+    task: PropTypes.object.isRequired,
+    toggleTask: PropTypes.func.isRequired,
+    delTask: PropTypes.func.isRequired,
+    changeTask: PropTypes.func.isRequired,
+};
 
-export default connect(mapStateToProps, {doneTask, delTask})(Task);
+
+export default connect(mapStateToProps, {toggleTask, delTask})(Task);
