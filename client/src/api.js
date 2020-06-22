@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const api = {
     tasks: {
         allTasks: () => axios.get("http://localhost:4000/api/tasks").then(res => res.data.tasks),
@@ -11,7 +12,6 @@ const api = {
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
                 'Content-Type': 'application/json',
-                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             redirect: 'follow', // manual, *follow, error
             referrer: 'no-referrer', // no-referrer, *client
@@ -21,9 +21,10 @@ const api = {
         delete: task => axios.delete(`http://localhost:4000/api/tasks/${task._id}`).then(res => res.data.task),
     },
     users: {
-        create: user => axios.post("/api/users", {user}),
-        login: credentials => axios.post("/api/auth",{credentials})
+        create: user => axios.post("http://localhost:4000/api/users", {user}),
+        login: credentials => axios.post("http://localhost:4000/api/auth",{credentials})
     },
 };
+
 
 export default api;

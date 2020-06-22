@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import Nav from "./Nav";
 import LogIn from "./forms/LogIn";
-import {loadTasksAction} from "../actions/tasksAct"
+import {loadTasksAction} from "../actions/tasksAct";
 
 
 
@@ -41,7 +41,6 @@ App.propTypes = {
     tasks: PropTypes.array,
     loadCoursesAction: PropTypes.func,
 };
-
 
 
 export default connect(mapStateToProps,{loadTasksAction})(App);

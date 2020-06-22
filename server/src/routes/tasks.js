@@ -14,7 +14,7 @@ router.options("*", cors());
 
 
 router.get("/", (req, res) => {
-    console.log("respons All Tasks");
+    console.log("response All Tasks");
     const db = req.app.get("db");
     db.collection("tasks")
         .find({})
@@ -79,7 +79,7 @@ router.put("/:_id", (req, res) => {
             }
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.json({ task: r.value });
-            console.log(r.value)
+            console.log(r.value);
         });
 });
 

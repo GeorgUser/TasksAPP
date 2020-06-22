@@ -1,6 +1,5 @@
-import C from "../constants"
-// import id from "react-id-generator"
-import api from "../api"
+import C from "../constants";
+import api from "../api";
 
 export function loadTasksAction() {
     return function (dispatch) {

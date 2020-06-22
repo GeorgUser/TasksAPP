@@ -23,10 +23,10 @@ const TasksList = ({tasks, title}) => {
 TasksList.propTypes = {
     tasks: PropTypes.array.isRequired,
     title: PropTypes.string,
-}
+};
 
 TasksList.defaultProps = {
     title: "Tasks",
-}
+};
 
 export default TasksList;

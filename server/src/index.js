@@ -4,7 +4,6 @@ import mongodb from "mongodb";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 
-// https://server-georg.herokuapp.com/ | https://git.heroku.com/server-georg.git
 import tasks from "./routes/tasks";
 
 

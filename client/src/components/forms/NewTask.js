@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux"
+import {connect} from "react-redux";
 import { addTask } from "../../actions/tasksAct";
 
 
@@ -37,8 +37,8 @@ function NewTask({addTask}) {
     )
 }
 
-function mapStateToProps(state){
-  return {state}
+function mapStateToProps(state) {
+    return {state}
 }
 
 NewTask.propTypes = {
