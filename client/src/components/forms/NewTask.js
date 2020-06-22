@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import { addTask } from "../../actions/tasksAct";
+import Spinner from "../Spinner";
 
 
 function NewTask({addTask}) {
     const [task, getTask] = useState("");
 
-    const handleChange = ({target}) => getTask(target.value);
+    const [load, getLoad] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -27,11 +28,14 @@ function NewTask({addTask}) {
                     value={task}
                     className="form-control"
                 />
-                <input
-                    className="btn btn-primary"
-                    type="submit"
-                    value="ADD TASK"
-                />
+                {load ? (<Spinner/>)
+                    :
+                    (<input
+                        className="btn btn-primary"
+                        type="submit"
+                        value={task._id ? 'UPDATE' : 'ADD TASK'}
+                    />)
+                }
             </div>
         </form>
     )

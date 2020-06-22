@@ -4,9 +4,11 @@ import { doneTask, delTask } from "../../actions/tasksAct";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrashAlt, faUndo, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
+import Spinner from "../Spinner";
 
 function Task({task, doneTask, delTask}) {
 
+    const [load, getLoad] = useState(false);
     const done = () => {
         doneTask({...task, status: !task.status})
     };
@@ -20,15 +22,17 @@ function Task({task, doneTask, delTask}) {
             <div className="task">
                <p>{task.status && <FontAwesomeIcon icon={faCheckDouble} />} {task.title}</p>
             </div>
-
-            <div className="btnBlock">
-                <button onClick={done} className="btn btn-success">
-                    <FontAwesomeIcon icon={task.status ? faUndo : faCheck} />
-                </button>
-                <button onClick={del} className="btn btn-danger">
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                </button>
-            </div>
+            {load ? (<Spinner main={task.status ? '#dc3545' : '#28a745'}/>)
+                :
+                (<div className="btnBlock">
+                    <button onClick={on ? del : done} className="btn btn-success">
+                    </button>
+                    <button onClick={on ? (hideConfirm) : (task.status ? showConfirm : update)}
+                            className={task.status ? "btn btn-danger" : "btn btn-primary"}>
+                        <FontAwesomeIcon icon={on ? faTimes : (task.status ? faTrashAlt : faPen)}/>
+                    </button>
+                </div>)
+            }
         </li>
     )
 }
