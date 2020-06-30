@@ -101,4 +101,9 @@ button:active {
     outline: none;
 }
 
+.message {
+    position: absolute;
+    left: 2px;
+    bottom: 0;
+}
 
