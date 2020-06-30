@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, memo} from "react";
 import {connect} from "react-redux";
 import {toggleTask, delTask, updateTaskForChange} from "../../actions/tasksAct";
 import PropTypes from "prop-types";
@@ -17,7 +17,7 @@ const Task = memo(({task, toggleTask, delTask, updateTaskForChange}) => {
 
     const done = () => {
         getLoad(true);
-        toggleTask({...task, status: !task.status}).then(() => getLoad(false));
+        toggleTask({...task, status: !task.status}).then(getLoad(false));
     };
 
     const update = () => {
@@ -26,9 +26,10 @@ const Task = memo(({task, toggleTask, delTask, updateTaskForChange}) => {
 
     const del = () => {
         getLoad(true);
-        delTask(task).then(() => getLoad(false));
+        delTask(task).then(getLoad(false));
     };
 
+    console.log("task === render");
     return (
         <li className="task-block">
             <div className="task">
