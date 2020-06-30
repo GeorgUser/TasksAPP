@@ -100,9 +100,18 @@ button:active {
     outline: none;
 }
 
+.form-control-error {
+    border: 1px solid #e81216 !important;
+}
+
+.form-group {
+    margin-bottom: 0;
+    padding-bottom: 1rem;
+    position: relative;
+}
+
 .message {
     position: absolute;
     left: 2px;
     bottom: 0;
 }
-
