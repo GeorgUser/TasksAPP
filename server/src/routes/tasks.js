@@ -51,6 +51,7 @@ router.post("/", (req, res) => {
     if (Object.keys(errors).length === 0) {
         db.collection("tasks").insertOne(req.body, (err, r) => {
             if (err) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
                 res.status(500).json({errors: {global: err}});
                 return;
             }
