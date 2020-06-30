@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 import tasks from "./routes/tasks";
 import users from "./routes/users";
+import auth from "./routes/auth";
 
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api/users", users);
 app.use("/api/tasks", tasks);
+app.use("/api/auth", auth);
 
 app.use(express.static(path.join(__dirname,"data")));
 
