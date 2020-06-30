@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 
 import tasks from "./routes/tasks";
+import users from "./routes/users";
 
 
 const app = express();
@@ -19,7 +20,7 @@ const isDev = app.get("env") === "development";
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
+app.use("/api/users", users);
 app.use("/api/tasks", tasks);
 
 app.use(express.static(path.join(__dirname,"data")));
