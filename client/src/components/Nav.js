@@ -7,7 +7,7 @@ const Nav = () => (
         <Link className="navItem" to="/tasks">Your Tasks</Link>
         <Link className="navItem" to="/history">History</Link>
     </nav>
-)
+);
 
 export default Nav;
 

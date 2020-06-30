@@ -10,7 +10,7 @@ const Spinner = ({
 
     return (
         <div className={'spinner'}>
-            <svg style={{'background' : bgColor, 'border-radius' : '5px'}} xmlns="http://www.w3.org/2000/svg" version="1.0" width="98px" height="37px" viewBox="0 0 35 15">
+            <svg style={{'background' : bgColor, 'borderRadius' : '5px'}} xmlns="http://www.w3.org/2000/svg" version="1.0" width="98px" height="37px" viewBox="0 0 35 15">
                 <g>
                     <path
                         d="M-22.949-5.576l4.525,4.525L-41.051,21.576l-4.525-4.525Zm19.2,0L0.776-1.051-21.851,21.576l-4.526-4.525Zm19.2,0,4.525,4.525L-2.651,21.576l-4.525-4.525Zm19.2,0,4.525,4.525L16.549,21.576l-4.525-4.525Zm19.2,0,4.525,4.525L35.749,21.576l-4.526-4.525Zm38.4,0,4.525,4.525L74.149,21.576l-4.525-4.525Zm-19.2,0,4.525,4.525L54.949,21.576l-4.526-4.525Zm38.4,0,4.525,4.525L93.349,21.576l-4.526-4.525Zm19.2,0,4.525,4.525L112.549,21.576l-4.525-4.525Zm19.2,0,4.525,4.525L131.749,21.576l-4.525-4.525Z"
