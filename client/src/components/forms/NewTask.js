@@ -27,10 +27,15 @@ function NewTask({addTask, taskForChange, toggleTask}) {
         getLoad(true);
         if (taskForChange) {
             getTask(taskForChange);
-            toggleTask(task).then(() => getLoad(false));
+            toggleTask(task).then(() => getLoad(false)).catch(err => {
+                getLoad(false);
+                alert(err)
+            });
         } else {
-            setTimeout(
-            addTask(task).then(() => getLoad(false)),5000);
+            addTask(task).then(() => getLoad(false)).catch(err => {
+                getLoad(false);
+                alert(err)
+            });
         }
 
         getTask({
@@ -38,7 +43,7 @@ function NewTask({addTask, taskForChange, toggleTask}) {
             status: false
         });
     };
-
+    console.log("form");
     return (
         <form onSubmit={handleSubmit} className="form">
             <div className="newTask">
@@ -61,8 +66,8 @@ function NewTask({addTask, taskForChange, toggleTask}) {
     )
 }
 
-function mapStateToProps(state) {
-    return {state}
+function mapStateToProps({taskForChange}) {
+    return {taskForChange}
 }
 
 NewTask.propTypes = {

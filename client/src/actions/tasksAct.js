@@ -17,9 +17,9 @@ export function addTask(task) {
     return function (dispatch) {
         return api.tasks.create(task)
             .then(task => dispatch({
-                    type: C.ADD_TASK,
-                    payload: task
-                })).catch(err => {
+                type: C.ADD_TASK,
+                payload: task
+            })).catch(err => {
                 throw err;
             })
     }
@@ -27,7 +27,6 @@ export function addTask(task) {
 
 export function toggleTask(task) {
     return function (dispatch) {
-        console.log(task);
         return api.tasks.update(task)
             .then(task => {
                 console.log(task);
@@ -50,5 +49,12 @@ export function delTask(task) {
             })).catch(err => {
                 throw err;
             })
+    }
+}
+
+export function updateTaskForChange(task) {
+    return {
+        type: C.CHANGE_TASK,
+        payload: task
     }
 }

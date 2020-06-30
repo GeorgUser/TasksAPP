@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
-import {toggleTask, delTask} from "../../actions/tasksAct";
+import {toggleTask, delTask, updateTaskForChange} from "../../actions/tasksAct";
 import PropTypes from "prop-types";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck, faTrashAlt, faUndo, faCheckDouble, faPen, faTimes} from '@fortawesome/free-solid-svg-icons';
 import Spinner from "../Spinner";
 
 
-function Task({task, toggleTask, delTask, changeTask}) {
+const Task = memo(({task, toggleTask, delTask, updateTaskForChange}) => {
 
     const [load, getLoad] = useState(false);
     const [on, setOn] = useState(false);
@@ -21,7 +21,7 @@ function Task({task, toggleTask, delTask, changeTask}) {
     };
 
     const update = () => {
-        changeTask(task);
+        updateTaskForChange(task);
     };
 
     const del = () => {
@@ -48,7 +48,7 @@ function Task({task, toggleTask, delTask, changeTask}) {
             }
         </li>
     )
-}
+});
 
 function mapStateToProps(state) {
     return {state}
@@ -58,8 +58,8 @@ Task.propTypes = {
     task: PropTypes.object.isRequired,
     toggleTask: PropTypes.func.isRequired,
     delTask: PropTypes.func.isRequired,
-    changeTask: PropTypes.func.isRequired,
+    updateTaskForChange: PropTypes.func,
 };
 
 
-export default connect(mapStateToProps, {toggleTask, delTask})(Task);
+export default connect(mapStateToProps, {toggleTask, delTask, updateTaskForChange})(Task);
