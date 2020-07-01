@@ -1,11 +1,12 @@
 import React from 'react';
-import NewTask from './forms/NewTask';
-import TasksList from './tasks/TasksList';
-import {Route} from "react-router-dom"
+import {Route} from "react-router-dom";
 import Nav from "./Nav";
+import {Async, lazyImport} from "./Async";
 import LogIn from "./forms/LogIn";
-import SignUp from "./forms/SignUp";
 
+const SignUp = Async(lazyImport("./forms/SignUp"));
+const NewTask = Async(lazyImport("./forms/NewTask"));
+const TasksList = Async(lazyImport("./tasks/TasksList"));
 
 const App = () => {
 
