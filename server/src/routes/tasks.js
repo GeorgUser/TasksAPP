@@ -1,7 +1,7 @@
 import express from "express";
 import mongodb from "mongodb";
 import cors from "cors";
-
+import authenticate from "../middlewares/authenticate";
 const router = express.Router();
 
 const validate = data => {
@@ -12,12 +12,11 @@ const validate = data => {
 
 router.options("*", cors());
 
-
-router.get("/", (req, res) => {
-    console.log("response All Tasks");
+router.get("/", authenticate, (req, res) => {
+    console.log("Response all tasks");
     const db = req.app.get("db");
     db.collection("tasks")
-        .find({})
+        .find({userId: new mongodb.ObjectID(req.userId)})
         .toArray((err, tasks) => {
             if (err) {
                 res.status(500).json({errors: {global: err}});
@@ -28,34 +27,19 @@ router.get("/", (req, res) => {
         });
 });
 
-// router.get("/:_id", (req, res) => {
-//     const db = req.app.get("db");
-//     db.collection("tasks").findOne(
-//         { _id: new mongodb.ObjectId(req.params._id) },
-//         (err, film) => {
-//             if (err) {
-//                 res.status(500).json({ errors: { global: err } });
-//                 return;
-//             }
-//             res.setHeader('Access-Control-Allow-Origin', '*');
-//             res.json({ film });
-//         }
-//     );
-// });
-
-router.post("/", (req, res) => {
-    console.log(req.body);
+router.post("/", authenticate, (req, res) => {
     const db = req.app.get("db");
     const errors = validate(req.body);
 
     if (Object.keys(errors).length === 0) {
-        db.collection("tasks").insertOne(req.body, (err, r) => {
+        const task = {...req.body, userId: req.userId};
+        db.collection("tasks").insertOne(task, (err, r) => {
             if (err) {
                 res.setHeader('Access-Control-Allow-Origin', '*');
                 res.status(500).json({errors: {global: err}});
                 return;
             }
-            console.log(r.ops[0]);
+            console.log("Add new task", r.ops[0]);
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.json({task: r.ops[0]});
         });
@@ -65,9 +49,9 @@ router.post("/", (req, res) => {
     }
 });
 
-router.put("/:_id", (req, res) => {
+router.put("/:_id", authenticate, (req, res) => {
     const db = req.app.get("db");
-    const { _id, ...taskData } = req.body.task;
+    const { _id, userId, ...taskData } = req.body.task;
 
     db.collection("tasks").findOneAndUpdate(
         { _id: new mongodb.ObjectId(req.params._id) },
@@ -80,14 +64,13 @@ router.put("/:_id", (req, res) => {
             }
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.json({ task: r.value });
-            console.log(r.value);
+            console.log("Change task", r.value);
         });
 });
 
-router.delete("/:_id", (req, res) => {
+router.delete("/:_id", authenticate, (req, res) => {
     const db = req.app.get("db");
-    console.log(req.params);
-    console.log(req.params._id);
+    console.log("Delete task", req.params._id);
     db.collection("tasks").deleteOne(
         {_id: new mongodb.ObjectId(req.params._id)},
         err => {
