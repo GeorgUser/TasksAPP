@@ -1,18 +1,17 @@
-import React, {memo, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import Task from './Task';
 import Message from './Message';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {loadTasksAction} from "../../actions/tasksAct";
 
-const TasksList = memo(({ tasks, title, loadTasksAction }) => {
+const TasksList = ({ tasks, title, loadTasksAction, token }) => {
 
     useEffect(() => {
-        if(tasks.length === 0) loadTasksAction().catch(err => alert(err));
+        loadTasksAction().catch(err => alert(err));
         // eslint-disable-next-line
-    },[]);
-
-    console.log('taskList === render');
+    },[token]);
+    
     return (
         <>
             <h3>{title}</h3>
@@ -27,7 +26,7 @@ const TasksList = memo(({ tasks, title, loadTasksAction }) => {
             </ul>
         </>
     )
-});
+};
 
 function mapStateToProps(state, ownProps) {
     return{

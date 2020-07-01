@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Route} from "react-router-dom";
 import Nav from "./Nav";
+import {setAuthorizationHeader} from "../api";
 import {Async, lazyImport} from "./Async";
 import LogIn from "./forms/LogIn";
 
@@ -9,20 +10,37 @@ const NewTask = Async(lazyImport("./forms/NewTask"));
 const TasksList = Async(lazyImport("./tasks/TasksList"));
 
 const App = () => {
+    const [token, setToken] = useState(null);
 
-    console.log('app === render');
+    useEffect(()=>{
+        setToken(localStorage.getItem('userToken'));
+        setAuthorizationHeader(token);
+    }, [token]);
+
+    const login = token => {
+        setToken(token);
+        setAuthorizationHeader(token);
+        localStorage.userToken = token;
+    };
+
+    const logout = () => {
+        setToken(null);
+        setAuthorizationHeader();
+        delete localStorage.userToken;
+        console.log(token)
+    };
+
     return (
-    <div className="container">
-        <div className="tableToDo">
-            <Nav/>
-            <Route exact path="/" component={LogIn} />
-            <Route exact path="/SignUp" component={SignUp} />
-            <Route path="/tasks" render={(props)=> <NewTask {...props}/>} />
-            <Route path="/tasks" render={(props)=><TasksList {...props} state={false} title={"Your tasks"}/>} />
-            <Route path="/history" render={(props)=><TasksList {...props} state={true} title={"History"}/>} />
-        </div>
-    </div>)
+        <div className="container">
+            <div className="tableToDo">
+                { token && <Nav logout={logout}/>}
+                <Route exact path="/" render={(props) => <LogIn {...props} login={login}/>}/>
+                <Route exact path="/SignUp" component={SignUp}/>
+                <Route path="/tasks" render={(props) => <NewTask {...props}/>}/>
+                <Route path="/tasks" render={(props) => <TasksList {...props} token={token} state={false} title={"Your tasks"}/>}/>
+                <Route path="/history" render={(props) => <TasksList {...props} state={true} title={"History"}/>}/>
+            </div>
+        </div>)
 };
-
 
 export default App;

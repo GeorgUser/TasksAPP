@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 import FormMessage from "./FormMessage";
 import api from "../../api";
 
-const LogIn = () => {
+const LogIn = (props) => {
     const initialData = {
         email: "",
         password: "",
@@ -33,10 +33,11 @@ const LogIn = () => {
             setLoading(true);
             console.log("=============== valid");
             api.users.login(data)
-                .then(res => {
+                .then(token => {
                     setLoading(false);
                     setData(initialData);
-                    console.log(res)
+                    props.login(token);
+                    props.history.push("/tasks");
                 })
                 .catch(err => {
                     setErrors({password: err.response.data.errors.global});
