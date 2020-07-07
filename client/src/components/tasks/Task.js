@@ -7,7 +7,7 @@ import {faCheck, faTrashAlt, faUndo, faCheckDouble, faPen, faTimes} from '@forta
 import Spinner from "../Spinner";
 
 
-const Task = memo(({task, toggleTask, delTask, updateTaskForChange}) => {
+const Task = memo(({task, toggleTask, delTask, updateTaskForChange, position}) => {
 
     const [load, getLoad] = useState(false);
     const [on, setOn] = useState(false);
@@ -32,8 +32,8 @@ const Task = memo(({task, toggleTask, delTask, updateTaskForChange}) => {
     console.log("task === render");
     return (
         <li className="task-block">
-            <div className="task">
-                <p>{task.status && <FontAwesomeIcon icon={faCheckDouble}/>} {task.title}</p>
+            <div className="task-title">
+                <p><span className="taskNum">{position}.</span>{task.status && <FontAwesomeIcon icon={faCheckDouble}/>} {task.title}</p>
             </div>
             {load ? (<Spinner main={task.status ? '#dc3545' : '#28a745'}/>)
                 :

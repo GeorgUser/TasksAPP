@@ -5,12 +5,13 @@
 }
 
 .bg {
-    background: #adb5bd;
+    background: #d0d0d0;
     min-height: 100vh;
+    padding-top: calc(50vh - 474px / 2);
 }
 
 .menu {
-    padding: 20px 0;
+    padding: 0 0 30px 0;
     border-bottom: 2px solid black;
 }
 
@@ -31,12 +32,23 @@
 }
 
 .form {
-    padding: 10px 0;
+    padding: 20px 0;
+    margin-bottom: 20px;
     border-bottom: 2px solid black;
 }
 
 .tableToDo {
-    max-width: 420px;
+    max-width: 570px;
+    background: #f1f2f3;
+    margin: 20px auto;
+    border: 7px solid #007bff;
+    padding: 55px;
+    box-shadow: inset 0 1px 6px -1px #7d7d7d, 0 0 2px 0 #fff;
+    border-radius: 15px;
+}
+
+.tableToDo h3 {
+    margin-top: 15px;
 }
 
 .newTask {
@@ -52,6 +64,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .task p {
@@ -60,12 +73,16 @@
 
 .task {
     display: flex;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 6px 0;
+    border-bottom: 1px solid #fbfbfb;
 }
 
 .taskNum {
     margin: 5px 5px 5px 0;
     font-size: 22px;
-    font-weight: bold;
+    font-weight: 400;
     display: inline-block;
 }
 
@@ -87,12 +104,6 @@
     width: 98px;
 }
 
-li {
-    margin: 5px 0;
-    font-size: 22px;
-    font-weight: bold;
-}
-
 input:focus,
 input:active,
 button:focus,
@@ -106,12 +117,22 @@ button:active {
 
 .form-group {
     margin-bottom: 0;
+    margin-top: 20px;
     padding-bottom: 1rem;
     position: relative;
+}
+
+.form-group .form-control,
+.newTask .form-control {
+    height: calc(2.2em + .75rem + 2px);
 }
 
 .message {
     position: absolute;
     left: 2px;
     bottom: 0;
+}
+
+.newTask .btn-primary {
+    min-width: 100px;
 }

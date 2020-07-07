@@ -18,8 +18,7 @@ const TasksList = ({ tasks, title, loadTasksAction, token }) => {
             <ul className="list-unstyled list">
                 {tasks.length ? tasks.map((task, i) => (
                         <div key={task._id} className="task">
-                            <span className="taskNum">{i+1}.</span>
-                            <Task task={task}/>
+                            <Task task={task} position={i+1}/>
                         </div>
                     )
                 ) : <Message/>}
