@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {addTask, toggleTask} from "../../actions/tasksAct";
+import {addTask, toggleTask, updateTaskForChange} from "../../actions/tasksAct";
 import Spinner from "../Spinner";
 
 
-function NewTask({addTask, taskForChange, toggleTask}) {
+function NewTask({addTask, taskForChange, toggleTask, updateTaskForChange}) {
 
-    const [load, getLoad] = useState(false);
+    const [load, setLoad] = useState(false);
 
     const [task, getTask] = useState({
         title: '',
@@ -24,17 +24,20 @@ function NewTask({addTask, taskForChange, toggleTask}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        getLoad(true);
+        setLoad(true);
         if (taskForChange) {
             getTask(taskForChange);
-            toggleTask(task).then(() => getLoad(false)).catch(err => {
-                getLoad(false);
-                alert(err)
+            toggleTask(task).then(() => {
+                setLoad(false);
+                updateTaskForChange();
+            }).catch(err => {
+                setLoad(false);
+                console.log(err);
             });
         } else {
-            addTask(task).then(() => getLoad(false)).catch(err => {
-                getLoad(false);
-                alert(err)
+            addTask(task).then(() => setLoad(false)).catch(err => {
+                setLoad(false);
+                console.log(err);
             });
         }
 
@@ -75,4 +78,4 @@ NewTask.propTypes = {
 };
 
 
-export default connect(mapStateToProps, {addTask, toggleTask})(NewTask);
+export default connect(mapStateToProps, {addTask, toggleTask, updateTaskForChange})(NewTask);

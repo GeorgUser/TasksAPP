@@ -52,7 +52,7 @@ export function delTask(task) {
     }
 }
 
-export function updateTaskForChange(task) {
+export function updateTaskForChange(task = null) {
     return {
         type: C.CHANGE_TASK,
         payload: task
