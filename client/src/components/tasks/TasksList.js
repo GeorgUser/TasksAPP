@@ -5,20 +5,27 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {loadTasksAction} from "../../actions/tasksAct";
 
-const TasksList = ({ tasks, title, loadTasksAction, token }) => {
+const TasksList = ({tasks, title, loadTasksAction, token, history}) => {
 
+
+    console.log(tasks, "task");
     useEffect(() => {
-        loadTasksAction().catch(err => alert(err));
-        // eslint-disable-next-line
-    },[token]);
-    
+        if (token) {
+            loadTasksAction().catch(err => alert(err));
+        } else {
+            history.push('/');
+            console.log('No token');
+        }
+        return loadTasksAction(true);
+    }, [token]);
+
     return (
         <>
             <h3>{title}</h3>
             <ul className="list-unstyled list">
                 {tasks.length ? tasks.map((task, i) => (
                         <div key={task._id} className="task">
-                            <Task task={task} position={i+1}/>
+                            <Task task={task} position={i + 1}/>
                         </div>
                     )
                 ) : <Message/>}
@@ -28,7 +35,7 @@ const TasksList = ({ tasks, title, loadTasksAction, token }) => {
 };
 
 function mapStateToProps(state, ownProps) {
-    return{
+    return {
         tasks: state.tasks.filter(task => task.status === ownProps.state) || [],
     }
 }

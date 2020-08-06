@@ -27,7 +27,7 @@ const App = () => {
         setToken(null);
         setAuthorizationHeader();
         delete localStorage.userToken;
-        console.log(token)
+        console.log(token, "logout")
     };
 
     return (
@@ -36,9 +36,9 @@ const App = () => {
                 { token && <Nav logout={logout}/>}
                 <Route exact path="/" render={(props) => <LogIn {...props} login={login}/>}/>
                 <Route exact path="/SignUp" component={SignUp}/>
-                <Route path="/tasks" render={(props) => <NewTask {...props}/>}/>
+                <Route path="/tasks" render={(props) => <NewTask {...props} token={token}/>}/>
                 <Route path="/tasks" render={(props) => <TasksList {...props} token={token} state={false} title={"Your tasks"}/>}/>
-                <Route path="/history" render={(props) => <TasksList {...props} state={true} title={"History"}/>}/>
+                <Route path="/history" render={(props) => <TasksList {...props} token={token} state={true} title={"History"}/>}/>
             </div>
         </div>)
 };
