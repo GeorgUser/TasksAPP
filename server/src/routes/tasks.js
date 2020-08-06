@@ -2,6 +2,8 @@ import express from "express";
 import mongodb from "mongodb";
 import cors from "cors";
 import authenticate from "../middlewares/authenticate";
+import checkId from "../middlewares/checkId";
+
 const router = express.Router();
 
 const validate = data => {
@@ -37,6 +39,7 @@ router.post("/", authenticate, (req, res) => {
             if (err) {
                 res.setHeader('Access-Control-Allow-Origin', '*');
                 res.status(500).json({errors: {global: err}});
+                console.log(err);
                 return;
             }
             console.log("Add new task", r.ops[0]);
@@ -46,24 +49,25 @@ router.post("/", authenticate, (req, res) => {
     } else {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.status(400).json({errors});
+        console.log(errors);
     }
 });
 
-router.put("/:_id", authenticate, (req, res) => {
+router.put("/:_id", authenticate, checkId, (req, res) => {
     const db = req.app.get("db");
-    const { _id, userId, ...taskData } = req.body.task;
+    const {_id, userId, ...taskData} = req.body.task;
 
     db.collection("tasks").findOneAndUpdate(
-        { _id: new mongodb.ObjectId(req.params._id) },
-        { $set: taskData },
-        { returnOriginal: false },
+        {_id: new mongodb.ObjectId(req.params._id)},
+        {$set: taskData},
+        {returnOriginal: false},
         (err, r) => {
             if (err) {
-                res.status(500).json({ errors: { global: err } });
+                res.status(500).json({errors: {global: err}});
                 return;
             }
             res.setHeader('Access-Control-Allow-Origin', '*');
-            res.json({ task: r.value });
+            res.json({task: r.value});
             console.log("Change task", r.value);
         });
 });
