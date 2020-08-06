@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import {Link} from "react-router-dom"
 import FormMessage from "./FormMessage";
 import api from "../../api";
+import Spinner from "../Spinner";
 
 const LogIn = (props) => {
     const initialData = {
@@ -55,36 +56,39 @@ const LogIn = (props) => {
         return errors;
     };
 
-    return (<form onSubmit={hendleSubmit}>
-            <div className="form-group">
-                <label htmlFor="inputEmail">Email address</label>
-                <input
-                    type="email"
-                    className={errors.email ? "form-control form-control-error" : "form-control"}
-                    id="inputEmail"
-                    placeholder="Email"
-                    value={data.email}
-                    onChange={handleChange}
-                    name="email"
-                />
-                <FormMessage>{errors.email}</FormMessage>
-            </div>
-            <div className="form-group">
-                <label htmlFor="inputPassword1">Password</label>
-                <input
-                    type="password"
-                    className={errors.password ? "form-control-error form-control" : "form-control"}
-                    id="inputPassword1"
-                    placeholder="Password"
-                    value={data.password}
-                    onChange={handleChange}
-                    name="password"
-                />
-                <FormMessage>{errors.password}</FormMessage>
-            </div>
-            <button type="submit" className="btn btn-primary">LogIn</button>
-            <Link className="btn btn-secondary" to="/SignUp">Registration</Link>
-        </form>
+    return (<>
+            <h1>Log In</h1>
+            <form onSubmit={hendleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="inputEmail">Email address</label>
+                    <input
+                        type="email"
+                        className={errors.email ? "form-control form-control-error" : "form-control"}
+                        id="inputEmail"
+                        placeholder="Email"
+                        value={data.email}
+                        onChange={handleChange}
+                        name="email"
+                    />
+                    <FormMessage>{errors.email}</FormMessage>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="inputPassword1">Password</label>
+                    <input
+                        type="password"
+                        className={errors.password ? "form-control-error form-control" : "form-control"}
+                        id="inputPassword1"
+                        placeholder="Password"
+                        value={data.password}
+                        onChange={handleChange}
+                        name="password"
+                    />
+                    <FormMessage>{errors.password}</FormMessage>
+                </div>
+                {loading ? (<Spinner/>) : (<button type="submit" className="btn btn-primary">LogIn</button>)}
+                <Link className="btn btn-secondary" to="/SignUp">Registration</Link>
+            </form>
+        </>
     )
 };
 

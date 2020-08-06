@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const FormMessage = ({type, children}) => (
-    <div className="message" style={{color: type === "error" ? "#e81216" : "#039a3c", fontSize: "10px"}}>
+    <div className="form-message" style={{color: type === "error" ? "#e81216" : "#039a3c", fontSize: "10px"}}>
         {children}
     </div>
 );
