@@ -32,12 +32,12 @@ function NewTask({addTask, taskForChange, toggleTask, updateTaskForChange}) {
                 updateTaskForChange();
             }).catch(err => {
                 setLoad(false);
-                console.log(err);
+                alert(err.response.data.errors.title);
             });
         } else {
             addTask(task).then(() => setLoad(false)).catch(err => {
                 setLoad(false);
-                console.log(err);
+                alert(err.response.data.errors.title);
             });
         }
 
