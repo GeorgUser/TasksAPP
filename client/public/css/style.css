@@ -88,6 +88,7 @@
 
 .btnBlock {
     text-align: right;
+    display: flex;
 }
 
 .btn {
@@ -127,7 +128,7 @@ button:active {
     height: calc(2.2em + .75rem + 2px);
 }
 
-.message {
+.form-message {
     position: absolute;
     left: 2px;
     bottom: 0;
