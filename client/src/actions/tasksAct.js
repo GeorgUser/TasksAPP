@@ -1,15 +1,22 @@
 import C from "../constants";
 import api from "../api";
 
-export function loadTasksAction() {
+export function loadTasksAction(reset = false) {
     return function (dispatch) {
-        return api.tasks.allTasks()
-            .then(tasks => dispatch({
+        if (reset) {
+            return () => dispatch({
                 type: C.LODE_TASK,
-                payload: tasks
-            })).catch(err => {
-                throw err;
+                payload: []
             })
+        } else {
+            return api.tasks.allTasks()
+                .then(tasks => dispatch({
+                    type: C.LODE_TASK,
+                    payload: tasks
+                })).catch(err => {
+                    throw err;
+                })
+        }
     }
 }
 
