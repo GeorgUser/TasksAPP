@@ -40,7 +40,7 @@ mongodb.MongoClient.connect(mongoUrl, {
     app.set("db", db);
 
     app.get("/[A-Za-z0-9]*", (req, res) => {
-        res.sendFile(path.join(__dirname, "./index.html"));
+        res.sendFile(path.join(__dirname, "./data/index.html"));
     });
     app.listen(port, () => console.log(`Running on localhost:${port}`));
 })
