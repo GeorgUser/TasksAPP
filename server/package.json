@@ -6,7 +6,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development PORT=4000 nodemon --exec babel-node ./src/index.js",
     "build": "babel src --out-dir ./build",
-    "clean": "del-cli ./build"
+    "clean": "del-cli ./build",
+    "demon": "forever start build/index.js"
   },
   "keywords": [
     "express",
